@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add Transaction - Tracky</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Playfair Display', serif;
+        background-color: #fdfcf9;
+        color: #222;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center min-h-screen px-4">
+    <div id="app" class="w-full max-w-xl bg-white p-8 rounded-xl shadow-lg border border-[#d4d0c4] mt-10"></div>
+
+    <script type="text/babel">
+      const App = () => {
+        const [description, setDescription] = React.useState('');
+        const [amount, setAmount] = React.useState('');
+        const [type, setType] = React.useState('income');
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          const amt = parseFloat(amount);
+          if (!description || isNaN(amt)) return;
+
+          const finalAmount = type === 'expense' ? -Math.abs(amt) : Math.abs(amt);
+
+          const newTransaction = { description, amount: finalAmount };
+          const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+          transactions.push(newTransaction);
+          localStorage.setItem('transactions', JSON.stringify(transactions));
+
+          window.location.href = 'index.html';
+        };
+
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-center mb-6 text-[#2b2b2b]">Add Transaction</h1>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block mb-1 font-medium">Description</label>
+                <input
+                  type="text"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="e.g. Rent, Salary"
+                  className="w-full border border-[#ccc] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#888]"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-1 font-medium">Amount</label>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="e.g. 500"
+                  className="w-full border border-[#ccc] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#888]"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-1 font-medium">Type</label>
+                <select
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                  className="w-full border border-[#ccc] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#888]"
+                >
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+              <div className="flex justify-between">
+                <a href="index.html" className="text-[#5c5c5c] hover:underline">← Back</a>
+                <button type="submit" className="bg-[#2b2b2b] text-white px-6 py-2 rounded-lg hover:bg-[#444] transition-all">Add</button>
+              </div>
+            </form>
+          </div>
+        );
+      };
+
+      ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+    </script>
+  </body>
+</html>
