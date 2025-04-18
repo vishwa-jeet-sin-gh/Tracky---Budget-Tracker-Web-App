@@ -37,15 +37,12 @@ Just double-click index.html or serve using any live server extension in VS Code
 Add a Transaction
 Click on + Add Transaction → Fill the form on add.html → Submit → You’ll be redirected to the updated dashboard.
 
-📸 Screenshots (Optional)
-You can add screenshots here to showcase the app visually:
-
 markdown
 
 Copy
-Edit
+
 ![Dashboard View](https://github.com/user-attachments/assets/17b03e8e-e776-43e2-8734-c35bd61bac34)
-![Add Transaction](Screenshot 2025-04-10 163944)
+![Add Transaction](https://github.com/user-attachments/assets/4171c011-ad55-4e1a-8c71-f471a45d6908)
 📬 Want to Collaborate or Customize?
 Feel free to fork this repo or submit a pull request. You can also reach out if you’d like to turn this into a full-stack app!
 
